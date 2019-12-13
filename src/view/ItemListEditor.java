@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 import model.CustomTableModel;
@@ -43,7 +44,14 @@ public class ItemListEditor extends AbstractCellEditor implements TableCellEdito
             ActionListener listener = new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
-                    // nothing
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            table.clearSelection();
+                            table.requestFocusInWindow();
+                            fireEditingStopped();
+                        }
+                    });
                 }
             };
             ItemPanel panel = new ItemPanel((ItemConfiguration) value, controller);

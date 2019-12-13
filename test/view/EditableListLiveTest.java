@@ -3,7 +3,8 @@ package view;
 import controller.ListController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import model.ItemConfigTableModel;
@@ -20,10 +21,13 @@ public class EditableListLiveTest {
 
     public static void main(final String[] args) {
         ListController<MonitorsConfig> controller = new ListController<>();
-        MonitorsConfig config1 = new MonitorsConfig("Layout 1", "Layout 1");
-        MonitorsConfig config2 = new MonitorsConfig("Outro", "Layout 2");
 
-        controller.addAll(Arrays.asList(config1, config2));
+        List<MonitorsConfig> items = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            items.add(new MonitorsConfig("Layout " + i, "Layout " + (i + 10)));
+        }
+
+        controller.addAll(items);
 
         ItemConfigTableModel model = new ItemConfigTableModel(controller.getAll());
         controller.addListDataListener(model);

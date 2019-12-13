@@ -16,32 +16,26 @@ public class EditableList extends JTable {
 
     private final ListController controller;
 
-    private boolean initialized = false;
-
     public EditableList(final CustomTableModel model, final ListController controller) {
         super(model);
         this.controller = controller;
     }
 
     public void init() {
-        if (!initialized) {
-            setTableHeader(null);
-            setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setTableHeader(null);
+        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-            // TODO: make the height automatically setted by the context
-            setRowHeight(80);
+        // TODO: make the height automatically setted by the context
+        setRowHeight(80);
 
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-            setDefaultRenderer(String.class, centerRenderer);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        setDefaultRenderer(String.class, centerRenderer);
 
-            // getting the single column on this JTable to make a fake JList
-            TableColumn column = getColumnModel().getColumn(0);
-            column.setCellRenderer(new ItemListRenderer(controller));
-            column.setCellEditor(new ItemListEditor(controller));
-
-            initialized = true;
-        }
+        // getting the single column on this JTable to make a fake JList
+        TableColumn column = getColumnModel().getColumn(0);
+        column.setCellRenderer(new ItemListRenderer(controller));
+        column.setCellEditor(new ItemListEditor(controller));
     }
 
 }
